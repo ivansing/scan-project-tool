@@ -23,7 +23,7 @@ OPENAI_API_KEY=your_openai_api_key_here
 ## Installation
 ### 1. Clone the Repository:
 ```
-git clone https://github/ivansing/scan-project-tool.git
+git clone https://github/nickname/filename.git
 cd scan_project
 ```
 
