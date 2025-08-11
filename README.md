@@ -1,117 +1,135 @@
 # Scan Project Tool
 
-Scan Project Tool is a command-line application built in Node.js that scans your project's directory structure, optionally reads file contents, and sends the information to OpenAI's API for analysis. The tool supports customization options such as choosing the OpenAI model and providing a custom analysis prompt.
+A professional command-line application built with Node.js that analyzes project directory structures and file contents using OpenAI's API. This tool provides intelligent code analysis and project insights through customizable prompts and multiple AI models.
 
 ## Features
 
-- **Project Scanning:** Recursively scans a project directory, excluding directories and files that would overwhelm the analysis (e.g., `node_modules`, `.env`, and `package-lock.json`).
-- **File Reading:** Optionally reads contents of files with allowed extensions (`.js`, `.py`, `.tsx`, `.json`).
-- **OpenAI Integration:** Sends project structure or individual file content to the OpenAI API for detailed analysis.
-- **Customization Options:** Use CLI flags to specify the model (e.g., `gpt-3.5-turbo`, `gpt-4o-mini`) and to provide a custom prompt.
-- **Modular Design:** Organized into separate modules for scanning, analyzing, and CLI orchestration for easy maintenance and future enhancements.
+- **Intelligent Project Scanning**: Recursively analyzes project directories with smart exclusions for build artifacts, dependencies, and sensitive files
+- **Selective File Analysis**: Processes source code files with support for JavaScript, Python, TypeScript/JSX, and JSON formats
+- **OpenAI Integration**: Leverages multiple OpenAI models (GPT-3.5-turbo, GPT-4o-mini) for comprehensive code analysis
+- **Flexible Configuration**: Command-line options for model selection and custom analysis prompts
+- **Modular Architecture**: Clean separation of concerns with dedicated modules for scanning, analysis, and CLI operations
+- **Production Ready**: Comprehensive test coverage with unit and integration tests
 
 ## Prerequisites
 
-- **Node.js** (v14 or later)
-- **NPM** (comes with Node.js)
-- An **OpenAI API Key**
+- **Node.js** v14 or later
+- **npm** package manager
+- **OpenAI API Key** with appropriate billing setup
 
-Create a `.env` file in the project root with the following content:
-```dotenv
-OPENAI_API_KEY=your_openai_api_key_here
-```
 ## Installation
-### 1. Clone the Repository:
-```
-git clone https://github/nickname/filename.git
+
+### 1. Environment Setup
+```bash
+git clone <repository-url>
 cd scan_project
-```
-
-### 2. Install Dependencies:
-
-```
 npm install
 ```
 
-### 3. Global Installation (Optional):
-
-To run the tool globally, you can create a symlink to the CLI module. For example:
-
+### 2. Configuration
+Create a `.env` file in the project root:
+```env
+OPENAI_API_KEY=your_openai_api_key_here
 ```
+
+### 3. Verification
+```bash
+npm test
+npm run test:integration
+```
+
+### 4. Global Installation (Optional)
+```bash
 sudo ln -sf $(pwd)/src/cli.mjs /usr/local/bin/scan_project_tool
-```
-This allows you to execute the tool from any directory using the command:
-
-```
-scan_project_tool [options]
 ```
 
 ## Usage
-### Scanning the Entire Project
 
-To scan your project structure (excluding node_modules, .env, and package-lock.json), pretty-print the structure, and analyze it via OpenAI:
-
-```
-scan_project_tool --read --model gpt-3.5-turbo
-```
-### Analyzing a Specific File
-
-To read a specific file and send its content to OpenAI for analysis, use the --file flag:
-
-```
-scan_project_tool --file path/to/your/file.ext --model gpt-3.5-turbo --prompt "Analyze this file code."
-```
-**Note: The file must have one of the allowed extensions** (`.js`, `.py`, `.tsx`, `.json`).
-
-### Customization Options
-- `--model`: Specify the OpenAI model to use (e.g., `gpt-3.5-turbo`, `gpt-4o-mini`).
-- `--prompt`: Provide a custom prompt for analysis.
-
-Example:
-
-```
-scan_project_tool --file src/app/page.tsx --model gpt-3.5-turbo --prompt "Analyze this Next.js page code."
+### Project Structure Analysis
+Analyze entire project directory with intelligent AI insights:
+```bash
+node src/cli.mjs --read --model gpt-4o-mini
 ```
 
-## Project Structure
+### Individual File Analysis
+Process specific source files with custom prompts:
+```bash
+node src/cli.mjs --file src/components/App.tsx --model gpt-3.5-turbo --prompt "Review this component for best practices"
+```
 
-The project is organized in a modular way for maintainability:
+### Command Line Options
+| Option | Description | Example Values |
+|--------|-------------|----------------|
+| `--read` | Include file contents in project scan | - |
+| `--file` | Analyze specific file | `src/index.js` |
+| `--model` | OpenAI model selection | `gpt-3.5-turbo`, `gpt-4o-mini` |
+| `--prompt` | Custom analysis prompt | `"Review for security issues"` |
+
+### Supported File Types
+- JavaScript (`.js`)
+- Python (`.py`) 
+- TypeScript/JSX (`.tsx`)
+- JSON configuration (`.json`)
+
+## Architecture
 
 ```
 scan_project/
-├── package.json
-├── .env
 ├── src/
-│   ├── scanner.mjs       # Module for scanning the project and reading files.
-│   ├── analyzer.mjs      # Module for interacting with the OpenAI API.
-│   └── cli.mjs           # Main CLI module that orchestrates the tool.
-└── README.md             # Documentation and usage instructions.
+│   ├── scanner.mjs       # File system scanning and content extraction
+│   ├── analyzer.mjs      # OpenAI API integration and response handling  
+│   └── cli.mjs           # Command-line interface and argument parsing
+├── test/
+│   ├── scanner-only.test.mjs    # Unit tests for core functionality
+│   └── integration.test.mjs     # End-to-end CLI testing
+├── package.json          # Dependencies and npm scripts
+└── .env                  # Environment configuration (not tracked)
 ```
 
-**Optional: If you prefer a dedicated directory for executables, you can create a `bin/` folder and place a small wrapper file that imports `src/cli.mjs`.**
+## Testing
 
-## Future Enhancements
+The project includes comprehensive test coverage:
 
-- **Additional Analysis Features:** Extend analysis with more detailed insights or integrate other APIs.
-- **Improved Error Handling & Logging:** Enhance diagnostics and add fallback behaviors.
-- **Customizable Output Formats:** Support output in JSON, Markdown, or other formats.
-- **Graphical User Interface:** Develop a web interface for interactive use.
-- **Commercial Licensing:** Explore opportunities to commercialize the tool with premium features and support.
+```bash
+# Run unit tests
+npm test
+
+# Run integration tests  
+npm run test:integration
+```
+
+**Test Coverage:**
+- File system scanning operations
+- Content filtering and exclusions
+- CLI argument parsing
+- Error handling scenarios
+- OpenAI API integration points
+
+## Technical Specifications
+
+- **Runtime**: Node.js ES Modules
+- **Dependencies**: OpenAI SDK, dotenv, file system utilities
+- **Code Quality**: Modular design with separation of concerns
+- **Error Handling**: Graceful degradation for network/API failures
+- **Security**: Environment-based API key management
+
+## Development Roadmap
+
+- Multi-format export capabilities (JSON, Markdown, CSV)
+- Advanced filtering and exclusion patterns  
+- Integration with additional AI providers
+- Performance optimization for large codebases
+- Web interface development
 
 ## License
 
-This project is licensed under the MIT License. 
+MIT License - See LICENSE file for details
 
-## Contributing
+## Author
 
-Contributions are welcome! Please fork the repository and submit pull requests. For major changes, open an issue first to discuss what you would like to change.
+Ivan Duarte
 
-## Contact
+---
 
-For questions or support, please contact Ivan Duarte.
-
-
-```
-Feel free to modify and expand upon this README to better fit your project’s specific needs and your future plans for selling or enhancing the tool.
-```
+*Professional AI-powered code analysis tool for modern development workflows*
 

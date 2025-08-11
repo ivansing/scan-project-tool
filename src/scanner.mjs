@@ -1,8 +1,12 @@
 import fs from 'fs';
 import path from 'path';
 
+
 // Allowed file extensions for reading file contents
-const ALLOWED_EXTENSIONS = new Set([".js", ".py", ".tsx", ".json", "pdf", "txt"]);
+const ALLOWED_EXTENSIONS = new Set([".js", ".py", ".tsx", ".json"]);
+
+
+
 
 /**
  * Recursively scans the project folder and returns its structure,
