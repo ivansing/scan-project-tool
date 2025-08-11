@@ -157,15 +157,15 @@ async function runTests() {
   });
 
   // Results
-  console.log('📊 Integration Test Results:');
+  console.log('Integration Test Results:');
   console.log(`✅ Passed: ${testsPassed}/${testsTotal}`);
   console.log(`❌ Failed: ${testsTotal - testsPassed}/${testsTotal}`);
   
   if (testsPassed === testsTotal) {
-    console.log('🎉 All integration tests passed!');
+    console.log('All integration tests passed!');
     return 0;
   } else {
-    console.log('⚠️  Some integration tests failed.');
+    console.log('Some integration tests failed.');
     return 1;
   }
 }

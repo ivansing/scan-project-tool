@@ -196,15 +196,15 @@ async function runTests() {
   cleanupTempDir();
 
   // Results
-  console.log('📊 Test Results:');
+  console.log('Test Results:');
   console.log(`✅ Passed: ${testsPassed}/${testsTotal}`);
   console.log(`❌ Failed: ${testsTotal - testsPassed}/${testsTotal}`);
   
   if (testsPassed === testsTotal) {
-    console.log('🎉 All tests passed!');
+    console.log('All tests passed!');
     return 0;
   } else {
-    console.log('⚠️  Some tests failed.');
+    console.log('Some tests failed.');
     return 1;
   }
 }

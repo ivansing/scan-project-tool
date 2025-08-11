@@ -40,7 +40,7 @@ function createTestFiles(baseDir) {
 }
 
 // Test Suite
-console.log('🧪 Running Scanner-Only Tests...\n');
+console.log('Running Scanner-Only Tests...\n');
 
 async function runTests() {
   let testsPassed = 0;
@@ -206,15 +206,15 @@ async function runTests() {
   cleanupTempDir();
 
   // Results
-  console.log('📊 Test Results:');
+  console.log('Test Results:');
   console.log(`✅ Passed: ${testsPassed}/${testsTotal}`);
   console.log(`❌ Failed: ${testsTotal - testsPassed}/${testsTotal}`);
   
   if (testsPassed === testsTotal) {
-    console.log('🎉 All scanner tests passed!');
+    console.log('All scanner tests passed!');
     return 0;
   } else {
-    console.log('⚠️  Some scanner tests failed.');
+    console.log('Some scanner tests failed.');
     return 1;
   }
 }
